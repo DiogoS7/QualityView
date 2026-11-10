@@ -279,7 +279,7 @@ export default function QaAgent({ context, onAction }) {
         aria-expanded={open}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
-        className="relative grid size-14 place-items-center rounded-full border border-white/25 shadow-[0_14px_34px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.35)] backdrop-blur-xl backdrop-saturate-150 md:size-[60px]"
+        className="relative grid size-14 place-items-center rounded-full border border-[#7aa2ff]/50 shadow-[0_14px_34px_rgba(0,0,0,0.3),0_0_18px_rgba(91,134,240,0.4),inset_0_1px_0_rgba(255,255,255,0.35)] backdrop-blur-xl backdrop-saturate-150 md:size-[60px]"
         style={{
           background:
             'radial-gradient(circle at 30% 22%, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 50%), linear-gradient(160deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.05) 100%), rgba(30,42,70,.35)',

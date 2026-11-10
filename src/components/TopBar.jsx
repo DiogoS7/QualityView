@@ -210,7 +210,7 @@ export default function TopBar({ tab, onTab, alerts, onOpenDefect, onViewAlerts,
               onClick={() => onTab(id)}
               aria-current={active ? 'page' : undefined}
               className={`flex items-center gap-2 rounded-full border px-3 py-2.5 text-[13px] font-medium transition lg:px-[18px] ${
-                active ? 'border-white/25 bg-white/15 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]' : 'border-transparent text-muted hover:bg-white/[0.07] hover:text-ink'
+                active ? 'border-[#7aa2ff]/50 bg-white/10 text-ink shadow-[0_0_14px_rgba(91,134,240,0.4),inset_0_1px_0_rgba(255,255,255,0.18)]' : 'border-transparent text-muted hover:bg-white/[0.07] hover:text-ink'
               }`}
             >
               <Icon size={15} />

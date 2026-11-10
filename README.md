@@ -60,7 +60,7 @@ The chat button in the bottom-right corner opens the **QA Agent**, a chat assist
 | Tests | Vitest unit tests for the metrics, search, export and QA Agent logic (`src/lib/*.test.js`) |
 | CI/CD | GitHub Actions runs the tests and the build on every push and PR, then deploys `main` to GitHub Pages |
 
-The glass look is made of a frosted card (`backdrop-filter: blur() saturate()`), a soft top highlight and a deep drop shadow, laid over a plain deep-navy CSS backdrop with a soft cobalt light. No images are used.
+The glass look is made of a frosted card (`backdrop-filter: blur() saturate()`), a soft top highlight and a deep drop shadow, laid over a deep-navy CSS backdrop with a soft cobalt light and a faint grid. No images are used.
 
 ## Getting started
 
