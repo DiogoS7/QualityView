@@ -2,6 +2,8 @@ import { useState } from 'react';
 import {
   LuHouse,
   LuFlaskConical,
+  LuWandSparkles,
+  LuPlay,
   LuBug,
   LuNetwork,
   LuMail,
@@ -21,6 +23,8 @@ import { messages as initialMessages, people, profileLinks } from '../data/relea
 
 export const TABS = [
   { id: 'overview', label: 'Overview', icon: LuHouse },
+  { id: 'create', label: 'Create', icon: LuWandSparkles },
+  { id: 'execute', label: 'Execute', icon: LuPlay },
   { id: 'runs', label: 'Test runs', icon: LuFlaskConical },
   { id: 'defects', label: 'Defects', icon: LuBug },
   { id: 'traceability', label: 'Traceability', icon: LuNetwork },
@@ -201,7 +205,7 @@ export default function TopBar({ tab, onTab, alerts, onOpenDefect, onViewAlerts,
         <span className="hidden text-lg font-bold tracking-tight sm:inline">QualityView</span>
       </button>
 
-      <nav className="flex gap-1.5 sm:gap-2" aria-label="Views">
+      <nav className="hidden gap-1.5 md:flex lg:gap-2" aria-label="Views">
         {TABS.map(({ id, label, icon: Icon }) => {
           const active = tab === id;
           return (
@@ -209,12 +213,12 @@ export default function TopBar({ tab, onTab, alerts, onOpenDefect, onViewAlerts,
               key={id}
               onClick={() => onTab(id)}
               aria-current={active ? 'page' : undefined}
-              className={`flex items-center gap-2 rounded-full border px-3 py-2.5 text-[13px] font-medium transition lg:px-[18px] ${
+              className={`flex items-center gap-2 rounded-full border px-3 py-2.5 text-[13px] font-medium transition xl:px-4 ${
                 active ? 'border-[#7aa2ff]/50 bg-white/10 text-ink shadow-[0_0_14px_rgba(91,134,240,0.4),inset_0_1px_0_rgba(255,255,255,0.18)]' : 'border-transparent text-muted hover:bg-white/[0.07] hover:text-ink'
               }`}
             >
               <Icon size={15} />
-              <span className="hidden lg:inline">{label}</span>
+              <span className="hidden xl:inline">{label}</span>
             </button>
           );
         })}

@@ -8,6 +8,10 @@ import Overview from './views/Overview.jsx';
 import Defects from './views/Defects.jsx';
 import Traceability from './views/Traceability.jsx';
 import TestRuns from './views/TestRuns.jsx';
+import Create from './views/Create.jsx';
+import Execute from './views/Execute.jsx';
+import useAutomation from './lib/useAutomation.js';
+import { userStories } from './data/automation.js';
 import SearchPalette from './components/SearchPalette.jsx';
 import ScopePicker from './components/ScopePicker.jsx';
 import QaAgent from './components/QaAgent.jsx';
@@ -30,6 +34,8 @@ import { toCsv, downloadCsv } from './lib/csv.js';
 const RUN_ROWS = testRunRows(requirements, testCases);
 const ALERTS = defects.filter((d) => isOpen(d) && ['Critical', 'High'].includes(d.severity));
 const SEARCH_SOURCES = { defects, requirements, runs: RUN_ROWS };
+// Tests linked to a requirement with an open Critical or High defect fail with that defect.
+const KNOWN_DEFECTS = Object.fromEntries(ALERTS.map((d) => [d.reqId, d.id]));
 const VIEW_IDS = TABS.map((t) => t.id);
 const DEFAULT_FILTERS = { query: '', severity: 'All', status: 'All' };
 
@@ -63,6 +69,12 @@ export default function App() {
   const [selectedDefect, setSelectedDefect] = useState(null);
   const [focus, setFocus] = useState({ req: null, test: null });
   const [searchOpen, setSearchOpen] = useState(false);
+  const [auto, dispatch] = useAutomation();
+  const [createStory, setCreateStory] = useState(null);
+  const [executeTests, setExecuteTests] = useState(null);
+  const [dismissed, setDismissed] = useState([]);
+  const covered = new Set(auto.library.map((t) => t.story).filter(Boolean));
+  const openStories = userStories.filter((s) => !dismissed.includes(s.id) && !covered.has(s.id));
 
   // Ctrl/⌘ + K opens search from anywhere.
   useEffect(() => {
@@ -122,6 +134,22 @@ export default function App() {
     else navigate(a.view);
   };
 
+  const quickAction = (id) => {
+    if (id === 'create') {
+      navigate('create');
+      setTimeout(() => document.getElementById('builder')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+    } else if (id === 'generate') navigate('create');
+    else navigate('execute');
+  };
+  const generateFor = (story) => {
+    setCreateStory(story.text);
+    navigate('create');
+  };
+  const runTests = (ids) => {
+    setExecuteTests([...ids]);
+    navigate('execute');
+  };
+
   const onSearchPick = (r) => {
     if (r.type === 'defect') openDefect(r.id);
     else if (r.type === 'requirement') openRequirement(r.id);
@@ -147,6 +175,10 @@ export default function App() {
   const exportCsv = () => {
     if (tab === 'defects') {
       downloadCsv('qualityview-defects.csv', toCsv(filterDefects(defects, filters), ['id', 'title', 'severity', 'status', 'module', 'owner', 'ageDays', 'reqId']));
+    } else if (tab === 'create') {
+      downloadCsv('qualityview-test-library.csv', toCsv(auto.library.map((t) => ({ ...t, steps: t.steps.length })), ['id', 'title', 'reqId', 'source', 'steps']));
+    } else if (tab === 'execute') {
+      downloadCsv('qualityview-run-history.csv', toCsv(auto.history, ['at', 'name', 'env', 'jobs', 'passRate', 'healed', 'failed', 'wall']));
     } else if (tab === 'runs') {
       downloadCsv('qualityview-test-runs.csv', toCsv(RUN_ROWS, ['id', 'title', 'reqId', 'suite', 'tester', 'lastRun', 'durationSec', 'status']));
     } else if (tab === 'traceability') {
@@ -159,6 +191,8 @@ export default function App() {
 
   const titles = {
     overview: `${greeting()}, Diogo`,
+    create: 'Create',
+    execute: 'Execute',
     runs: 'Test runs',
     defects: 'Defects',
     traceability: 'Traceability',
@@ -198,7 +232,20 @@ export default function App() {
 
             <AnimatePresence mode="wait">
               <motion.div key={tab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-                {tab === 'overview' && <Overview scopeKey={scopeKey} scope={scope} m={m} onNavigate={navigate} />}
+                {tab === 'overview' && (
+                  <Overview
+                    scopeKey={scopeKey}
+                    scope={scope}
+                    m={m}
+                    onNavigate={navigate}
+                    onQuickAction={quickAction}
+                    stories={openStories}
+                    onGenerate={generateFor}
+                    onDismiss={(id) => setDismissed((d) => [...d, id])}
+                  />
+                )}
+                {tab === 'create' && <Create auto={auto} dispatch={dispatch} requirements={requirements} initialStory={createStory} onRun={runTests} />}
+                {tab === 'execute' && <Execute auto={auto} dispatch={dispatch} knownDefects={KNOWN_DEFECTS} initialTests={executeTests} />}
                 {tab === 'runs' && <TestRuns key={focus.test ?? 'all'} rows={RUN_ROWS} highlightId={focus.test} onOpenRequirement={openRequirement} />}
                 {tab === 'defects' && (
                   <Defects

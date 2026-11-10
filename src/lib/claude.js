@@ -62,3 +62,36 @@ export async function askClaude({ apiKey, question, history, context, signal }) 
   const data = await res.json();
   return data.content?.filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim() || '…';
 }
+
+/**
+ * Ask Claude to write test cases for a user story. Returns the same shape as
+ * generateFromStory: [{ title, type, priority, steps: [{ type, target, value }] }].
+ */
+export async function generateCasesWithClaude({ apiKey, story, signal }) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    signal,
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true',
+    },
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      max_tokens: 2000,
+      system:
+        'You are a senior QA engineer. Write test cases for the user story. Reply with JSON only: an array of {"title","type","priority","steps"}. ' +
+        'type is Positive, Negative or Boundary. priority is High, Medium or Low. steps is an array of {"type","target","value"} where type is one of ' +
+        'open, click, type, select, wait, assertText, assertVisible. Cover the happy path, every acceptance criterion, boundaries and negative cases. 6 to 12 cases.',
+      messages: [{ role: 'user', content: story }],
+    }),
+  });
+  if (!res.ok) throw new Error(res.status === 401 ? 'That API key was rejected.' : `HTTP ${res.status}`);
+  const data = await res.json();
+  const text = data.content?.filter((c) => c.type === 'text').map((c) => c.text).join('') ?? '';
+  const json = text.slice(text.indexOf('['), text.lastIndexOf(']') + 1);
+  const cases = JSON.parse(json);
+  if (!Array.isArray(cases)) throw new Error('Unexpected answer');
+  return cases.filter((c) => c && c.title && Array.isArray(c.steps));
+}

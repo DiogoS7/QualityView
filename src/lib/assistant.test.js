@@ -64,6 +64,12 @@ describe('QA agent – built-in answers', () => {
     expect(ask('tell me about the client').text).toMatch(/Meridian Bank/);
   });
 
+  it('answers about automation and schedules', () => {
+    expect(ask('which user stories need tests?').text).toMatch(/US-431/);
+    expect(ask('what runs nightly?').text).toMatch(/Full regression R4.2/);
+    expect(ask('what is self-healing?').text).toMatch(/locator/);
+  });
+
   it('falls back politely when it has no answer', () => {
     expect(ask('what is the weather in Lisbon').text).toMatch(/not sure/);
   });

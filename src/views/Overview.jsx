@@ -5,10 +5,12 @@ import TodayTimeline from '../components/TodayTimeline.jsx';
 import ActivityFeed from '../components/ActivityFeed.jsx';
 import SeverityCard from '../components/SeverityCard.jsx';
 import ReadinessCard from '../components/ReadinessCard.jsx';
+import QuickActions from '../components/QuickActions.jsx';
+import SmartAlerts from '../components/SmartAlerts.jsx';
 import { agenda, activity, sparklines, release } from '../data/release.js';
 import { delta } from '../lib/metrics.js';
 
-export default function Overview({ scopeKey, scope, m, onNavigate }) {
+export default function Overview({ scopeKey, scope, m, onNavigate, onQuickAction, stories, onGenerate, onDismiss }) {
   const prev = scope.previous;
   const stats = [
     {
@@ -56,6 +58,8 @@ export default function Overview({ scopeKey, scope, m, onNavigate }) {
       {stats.map((s, i) => (
         <StatsCard key={s.title} {...s} delay={0.2 + i * 0.07} />
       ))}
+      <QuickActions onAction={onQuickAction} delay={0.42} className="col-span-2" />
+      <SmartAlerts stories={stories} onGenerate={onGenerate} onDismiss={onDismiss} delay={0.46} className="col-span-2" />
       <ExecutionChart scopeKey={scopeKey} scope={scope} rateChange={delta(m.rate, prev.passRate)} delay={0.45} className="col-span-2 xl:col-span-3" />
       <TodayTimeline agenda={agenda} delay={0.55} className="col-span-2 xl:col-span-1" />
       <ActivityFeed items={activity} delay={0.65} onViewAll={() => onNavigate('defects')} className="col-span-2" />

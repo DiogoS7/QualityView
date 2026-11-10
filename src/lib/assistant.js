@@ -17,8 +17,10 @@ import {
   runSummary,
   formatDuration,
 } from './metrics.js';
+import { initialBatteries, initialSchedules, DEVICES, userStories } from '../data/automation.js';
 
 export const SUGGESTIONS = [
+  'Which user stories need tests?',
   'Are we ready for go-live?',
   'What is blocking the release?',
   'Show open critical defects',
@@ -45,6 +47,9 @@ const GLOSSARY = {
   'sca': '**Strong Customer Authentication (SCA)** is the PSD2 rule requiring two factors to approve a payment (REQ-102).',
   'uat': '**UAT (user acceptance testing)** is when the business – here Payments Ops – confirms the release does what they need. Its sign-off is one of the go-live gates.',
   'regression': 'A **regression suite** re-runs existing tests to prove new changes did not break what already worked.',
+  'self-heal': '**Self-healing** fixes a test whose element locator broke after a UI change: it finds the element by a more stable attribute (such as data-testid), finishes the run and logs the change, instead of failing.',
+  'battery': 'A **test battery** is a named group of automated tests run together, such as the smoke suite or the full R4.2 regression.',
+  'no-code': 'The **no-code builder** lets you make an automated test from steps like Open page, Click, Type text and Check text, without writing a script.',
   'severity': '**Severity** is the impact of a defect: Critical blocks go-live, High must be fixed or have an agreed workaround, Medium and Low can be planned.',
 };
 
@@ -179,6 +184,28 @@ export function answerQuestion(question, ctx) {
   if (has(q, 'what is', 'what are', "what's", 'what does', 'meaning', 'define', 'explain')) {
     const term = Object.keys(GLOSSARY).find((k) => q.includes(k));
     if (term) return { text: GLOSSARY[term], actions: [] };
+  }
+
+  // 3b. Automation: generation, execution, devices and schedules.
+  if (has(q, 'automat', 'generate', 'battery', 'batteries', 'device', 'parallel', 'schedul', 'nightly', 'self-heal', 'self heal', 'user stor', 'no-code', 'no code')) {
+    if (has(q, 'schedul', 'nightly')) {
+      return {
+        text: `Scheduled executions:\n${list(initialSchedules.map((s) => `**${initialBatteries.find((b) => b.id === s.battery)?.name}** – ${s.recurrence} at ${s.time} on ${s.env}, ${s.devices.length} devices`))}`,
+        actions: [{ label: 'Open Execute', view: 'execute' }],
+      };
+    }
+    if (has(q, 'user stor', 'generate', 'without tests', 'alert')) {
+      return {
+        text: `${plural(userStories.length, 'new user story', 'new user stories')} in the backlog have no tests yet: ${userStories.map((s) => `**${s.id}**`).join(', ')}. Open Create, pick a story and press Generate to get test cases covering the happy path, every acceptance criterion, boundaries and negative cases.`,
+        actions: [{ label: 'Open Create', view: 'create' }],
+      };
+    }
+    return {
+      text:
+        `In **Execute** you pick a battery (${initialBatteries.map((b) => b.name).join(', ')}), any of ${DEVICES.length} remote devices and up to 16 parallel workers. ` +
+        'Each test runs on each device; self-healing repairs broken locators so a UI change does not fail the run, and every run shows the time saved against running one by one.',
+      actions: [{ label: 'Open Execute', view: 'execute' }],
+    };
   }
 
   // 4. Go / no-go and blockers.
