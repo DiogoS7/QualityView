@@ -127,9 +127,9 @@ export default function QaAgent({ context, onAction }) {
                   <AgentIcon size={22} className="text-white" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold">QA Agent</p>
-                  <p className="flex items-center gap-1.5 truncate text-[11px] text-muted">
-                    <i className={`size-1.5 rounded-full ${apiKey ? 'bg-violet shadow-[0_0_6px_#8b7bff]' : 'bg-pass shadow-[0_0_6px_#4ade80]'}`} />
+                  <p className="text-[15px] font-semibold">QA Agent</p>
+                  <p className="flex items-center gap-1.5 truncate text-[13px] text-muted">
+                    <i className={`size-1.5 rounded-full ${apiKey ? 'bg-violet' : 'bg-pass'}`} />
                     {apiKey ? `Claude · ${CLAUDE_MODEL}` : 'Built-in · uses release data'}
                   </p>
                 </div>
@@ -151,7 +151,7 @@ export default function QaAgent({ context, onAction }) {
             <AnimatePresence initial={false}>
               {showKey && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden px-3">
-                  <div className="glass-inset mb-2 rounded-[16px] p-3 text-[11px] leading-relaxed text-muted">
+                  <div className="glass-inset mb-2 rounded-[16px] p-3 text-[13px] leading-relaxed text-muted">
                     {apiKey ? (
                       <div className="flex items-center justify-between gap-3">
                         <span>Claude is answering, using this release's data. Your key stays in this tab only.</span>
@@ -171,9 +171,9 @@ export default function QaAgent({ context, onAction }) {
                             onChange={(e) => setDraftKey(e.target.value)}
                             placeholder="sk-ant-…"
                             autoComplete="off"
-                            className="min-w-0 flex-1 rounded-lg bg-white/[0.07] px-3 py-2 text-xs text-ink outline-none placeholder:text-faint focus:bg-white/10"
+                            className="min-w-0 flex-1 rounded-lg bg-white/[0.07] px-3 py-2 text-[13px] text-ink outline-none placeholder:text-faint focus:bg-white/10"
                           />
-                          <button type="submit" disabled={!draftKey.trim()} className="rounded-lg bg-white px-3 text-xs font-semibold text-[#0f1524] disabled:opacity-40">
+                          <button type="submit" disabled={!draftKey.trim()} className="rounded-lg bg-white px-3 text-[13px] font-semibold text-[#0f1524] disabled:opacity-40">
                             Connect
                           </button>
                         </div>
@@ -188,14 +188,14 @@ export default function QaAgent({ context, onAction }) {
             <div ref={log} className="scroll-glass flex flex-1 flex-col gap-2.5 overflow-y-auto px-3 py-2" aria-live="polite">
               {messages.map((m, i) =>
                 m.role === 'user' ? (
-                  <div key={i} className="max-w-[85%] self-end rounded-[16px] rounded-br-md bg-white px-3.5 py-2 text-xs leading-relaxed text-[#0f1524]">
+                  <div key={i} className="max-w-[85%] self-end rounded-[16px] rounded-br-md bg-white px-3.5 py-2 text-[13px] leading-relaxed text-[#0f1524]">
                     {m.text}
                   </div>
                 ) : (
                   <div key={i} className="max-w-[92%] self-start">
-                    <div className="glass-inset rounded-[16px] rounded-bl-md px-3.5 py-2.5 text-xs leading-relaxed text-muted">
+                    <div className="glass-inset rounded-[16px] rounded-bl-md px-3.5 py-2.5 text-[13px] leading-relaxed text-muted">
                       <RichText text={m.text} />
-                      {m.note && <span className="mt-2 block text-[10px] text-blocked">{m.note}</span>}
+                      {m.note && <span className="mt-2 block text-[12px] text-blocked">{m.note}</span>}
                     </div>
                     {m.actions?.length > 0 && (
                       <div className="mt-1.5 flex flex-wrap gap-1.5">
@@ -206,7 +206,7 @@ export default function QaAgent({ context, onAction }) {
                               onAction(a);
                               if (window.innerWidth < 768) setOpen(false);
                             }}
-                            className="flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium text-ink transition hover:bg-white/15"
+                            className="flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[13px] font-medium text-ink transition hover:bg-white/15"
                           >
                             {a.label} <LuArrowRight size={11} />
                           </button>
@@ -218,12 +218,12 @@ export default function QaAgent({ context, onAction }) {
               )}
               {userTurns < 2 && !busy && (
                 <div className="mt-1 flex flex-col items-start gap-1.5">
-                  <p className="px-1 text-[10px] font-semibold tracking-[0.14em] text-faint uppercase">Try asking</p>
+                  <p className="px-1 text-[12px] font-semibold tracking-[0.14em] text-faint uppercase">Try asking</p>
                   {SUGGESTIONS.map((s) => (
                     <button
                       key={s}
                       onClick={() => ask(s)}
-                      className="rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-left text-[11px] text-muted transition hover:bg-white/12 hover:text-ink"
+                      className="rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-left text-[13px] text-muted transition hover:bg-white/12 hover:text-ink"
                     >
                       {s}
                     </button>
@@ -257,7 +257,7 @@ export default function QaAgent({ context, onAction }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about the release…"
-                className="glass-inset min-w-0 flex-1 rounded-full px-4 py-2.5 text-sm outline-none placeholder:text-faint focus:bg-white/10"
+                className="glass-inset min-w-0 flex-1 rounded-full px-4 py-2.5 text-[15px] outline-none placeholder:text-faint focus:bg-white/10"
               />
               <button
                 type="submit"
@@ -279,7 +279,7 @@ export default function QaAgent({ context, onAction }) {
         aria-expanded={open}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
-        className="relative grid size-14 place-items-center rounded-full border border-[#7aa2ff]/50 shadow-[0_14px_34px_rgba(0,0,0,0.3),0_0_18px_rgba(91,134,240,0.4),inset_0_1px_0_rgba(255,255,255,0.35)] backdrop-blur-xl backdrop-saturate-150 md:size-[60px]"
+        className="relative grid size-14 place-items-center rounded-full border border-[#7aa2ff]/50 shadow-[0_14px_34px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.35)] backdrop-blur-xl backdrop-saturate-150 md:size-[60px]"
         style={{
           background:
             'radial-gradient(circle at 30% 22%, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 50%), linear-gradient(160deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.05) 100%), rgba(30,42,70,.35)',
@@ -290,7 +290,7 @@ export default function QaAgent({ context, onAction }) {
             {open ? <LuX size={24} className="text-white" /> : <AgentIcon size={26} className="text-white" />}
           </motion.span>
         </AnimatePresence>
-        {!open && userTurns === 0 && <span className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-pass shadow-[0_0_0_1.5px_rgba(255,255,255,0.35),0_0_8px_rgba(74,222,128,0.8)]" />}
+        {!open && userTurns === 0 && <span className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-pass shadow-[0_0_0_1.5px_rgba(255,255,255,0.35)]" />}
       </motion.button>
     </div>
   );

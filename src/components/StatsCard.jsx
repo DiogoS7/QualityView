@@ -24,12 +24,12 @@ export default function StatsCard({ title, value, change, unit = '', icon: Icon,
           <LuArrowUpRight size={14} />
         </button>
       </div>
-      <p className="mt-4 text-xs text-muted">{title}</p>
+      <p className="mt-4 text-[13px] text-muted">{title}</p>
       <div className="mt-1 flex items-end justify-between gap-2">
         <div>
           <h2 className="text-[22px] leading-tight font-bold tracking-tight sm:text-[28px]">{value}</h2>
           <span
-            className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+            className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[13px] font-semibold ${
               change.good ? 'bg-pass/15 text-pass' : 'bg-fail/15 text-fail'
             }`}
           >

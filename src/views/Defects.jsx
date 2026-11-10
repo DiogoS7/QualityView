@@ -18,7 +18,7 @@ function Chip({ active, onClick, children, colour }) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+      className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] font-medium transition ${
         active ? 'border-white/30 bg-white text-[#0f1524]' : 'border-white/12 text-muted hover:text-ink'
       }`}
     >
@@ -31,8 +31,8 @@ function Chip({ active, onClick, children, colour }) {
 export function SeverityPill({ severity }) {
   const c = SEVERITY_COLOURS[severity];
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs" style={{ color: c }}>
-      <i className="size-2 rounded-full" style={{ background: c, boxShadow: `0 0 8px ${c}` }} />
+    <span className="inline-flex items-center gap-1.5 text-[13px]" style={{ color: c }}>
+      <i className="size-2 rounded-full" style={{ background: c }} />
       {severity}
     </span>
   );
@@ -61,7 +61,7 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
               value={filters.query}
               onChange={(e) => set({ query: e.target.value })}
               placeholder="Search id, title, module or requirement"
-              className="w-full bg-transparent text-sm outline-none placeholder:text-faint"
+              className="w-full bg-transparent text-[15px] outline-none placeholder:text-faint"
             />
             {filters.query && (
               <button aria-label="Clear search" onClick={() => set({ query: '' })} className="text-muted hover:text-ink">
@@ -74,7 +74,7 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
               <button
                 key={s}
                 onClick={() => set({ status: s })}
-                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
+                className={`rounded-full px-4 py-1.5 text-[13px] font-semibold transition ${
                   filters.status === s ? 'bg-white text-[#0f1524]' : 'text-faint hover:text-ink'
                 }`}
               >
@@ -96,8 +96,8 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
         </div>
 
         <div className="scroll-glass mt-4 overflow-x-auto">
-          <table className="w-full min-w-[680px] text-left text-xs">
-            <thead className="text-[11px] text-faint">
+          <table className="w-full min-w-[680px] text-left text-[13px]">
+            <thead className="text-[13px] text-faint">
               <tr>
                 {['ID', 'Title', 'Severity', 'Status', 'Module', 'Owner', 'Age'].map((h) => (
                   <th key={h} className="px-3 py-2 font-medium">
@@ -122,7 +122,7 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
                     <SeverityPill severity={d.severity} />
                   </td>
                   <td className="px-3 py-3">
-                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap ${STATUS_STYLE[d.status]}`}>{d.status}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap ${STATUS_STYLE[d.status]}`}>{d.status}</span>
                   </td>
                   <td className="px-3 py-3 whitespace-nowrap text-muted">{d.module}</td>
                   <td className="px-3 py-3">
@@ -159,8 +159,8 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
                   <LuX size={16} />
                 </button>
               </CardHeader>
-              <p className="mt-3 text-sm leading-relaxed">{selected.title}</p>
-              <dl className="mt-4 grid grid-cols-2 gap-3 text-xs">
+              <p className="mt-3 text-[15px] leading-relaxed">{selected.title}</p>
+              <dl className="mt-4 grid grid-cols-2 gap-3 text-[13px]">
                 <div className="glass-inset rounded-xl p-3">
                   <dt className="text-faint">Severity</dt>
                   <dd className="mt-1">
@@ -182,7 +182,7 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
                 </div>
               </dl>
               {req && (
-                <div className="glass-inset mt-3 rounded-xl p-3 text-xs">
+                <div className="glass-inset mt-3 rounded-xl p-3 text-[13px]">
                   <p className="flex items-center gap-1.5 text-faint">
                     <LuLink size={12} /> Traced to requirement
                   </p>
@@ -195,8 +195,8 @@ export default function Defects({ defects, filters, onFilters, selectedId, onSel
             </>
           ) : (
             <div className="py-6 text-center">
-              <p className="text-sm font-semibold">Select a defect</p>
-              <p className="mt-1 text-xs text-muted">Its owner and the requirement it is traced to will show here.</p>
+              <p className="text-[15px] font-semibold">Select a defect</p>
+              <p className="mt-1 text-[13px] text-muted">Its owner and the requirement it is traced to will show here.</p>
             </div>
           )}
         </motion.div>

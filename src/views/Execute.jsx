@@ -31,7 +31,7 @@ const LABEL = { queued: 'Queued', running: 'Running', passed: 'Passed', healed: 
 
 function Toggle({ on, onChange, label }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2 text-xs text-muted select-none">
+    <label className="flex cursor-pointer items-center gap-2 text-[13px] text-muted select-none">
       <button role="switch" aria-checked={on} onClick={() => onChange(!on)} className={`relative h-5 w-9 rounded-full transition ${on ? 'bg-accent' : 'bg-white/15'}`}>
         <span className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${on ? 'left-[18px]' : 'left-0.5'}`} />
       </button>
@@ -43,9 +43,9 @@ function Toggle({ on, onChange, label }) {
 function Stat({ label, value, sub, tone = 'text-ink' }) {
   return (
     <div className="glass-inset rounded-[14px] p-3">
-      <p className="text-[11px] text-faint">{label}</p>
+      <p className="text-[13px] text-faint">{label}</p>
       <p className={`mt-0.5 text-xl font-bold tracking-tight ${tone}`}>{value}</p>
-      {sub && <p className="text-[10px] text-muted">{sub}</p>}
+      {sub && <p className="text-[12px] text-muted">{sub}</p>}
     </div>
   );
 }
@@ -97,14 +97,14 @@ function RunPanel({ run, tests, devices, onDone, onClose }) {
 
       <div className="mt-4 flex items-center gap-3">
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
-          <div className="h-full rounded-full bg-gradient-to-r from-[#6aa2ff] to-[#2f6bf0] shadow-[0_0_12px_rgba(79,139,255,0.6)] transition-[width] duration-100" style={{ width: `${(finished / run.jobs.length) * 100}%` }} />
+          <div className="h-full rounded-full bg-gradient-to-r from-[#6aa2ff] to-[#2f6bf0] transition-[width] duration-100" style={{ width: `${(finished / run.jobs.length) * 100}%` }} />
         </div>
-        <span className="text-xs text-muted tabular-nums">
+        <span className="text-[13px] text-muted tabular-nums">
           {finished}/{run.jobs.length} · {formatSeconds(t)}
         </span>
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-4 text-[11px] text-muted">
+      <div className="mt-3 flex flex-wrap gap-4 text-[13px] text-muted">
         {['running', 'passed', 'healed', 'failed'].map((s) => (
           <span key={s} className="flex items-center gap-1.5">
             <i className={`size-2.5 rounded-sm border ${CELL[s].replace('animate-pulse', '')}`} />
@@ -115,7 +115,7 @@ function RunPanel({ run, tests, devices, onDone, onClose }) {
 
       {/* Test × device grid */}
       <div className="scroll-glass mt-4 overflow-x-auto">
-        <table className="text-left text-[11px]">
+        <table className="text-left text-[13px]">
           <thead>
             <tr>
               <th className="pr-3 pb-2 font-medium text-faint">Test</th>
@@ -124,7 +124,7 @@ function RunPanel({ run, tests, devices, onDone, onClose }) {
                 return (
                   <th key={d.id} className="px-1 pb-2 text-center font-medium text-faint" title={`${d.label} · ${d.os}`}>
                     <Icon size={13} className="mx-auto" />
-                    <span className="mt-0.5 block w-14 truncate text-[9px]">{d.label}</span>
+                    <span className="mt-0.5 block w-14 truncate text-[11px]">{d.label}</span>
                   </th>
                 );
               })}
@@ -166,10 +166,10 @@ function RunPanel({ run, tests, devices, onDone, onClose }) {
 
             {healedJobs.length > 0 && (
               <div className="mt-4">
-                <p className="text-xs font-semibold">Self-healing log</p>
+                <p className="text-[13px] font-semibold">Self-healing log</p>
                 <ul className="mt-2 flex flex-col gap-1.5">
                   {healedJobs.map((j) => (
-                    <li key={j.id} className="glass-inset flex flex-wrap items-center gap-2 rounded-xl px-3 py-2 text-[11px]">
+                    <li key={j.id} className="glass-inset flex flex-wrap items-center gap-2 rounded-xl px-3 py-2 text-[13px]">
                       <LuWrench size={12} className="text-violet" />
                       <b>{j.testId}</b>
                       <span className="text-muted">on {DEVICES.find((d) => d.id === j.device)?.label}, step {j.heal.step}:</span>
@@ -184,10 +184,10 @@ function RunPanel({ run, tests, devices, onDone, onClose }) {
 
             {failedJobs.length > 0 && (
               <div className="mt-4">
-                <p className="text-xs font-semibold">Failures</p>
+                <p className="text-[13px] font-semibold">Failures</p>
                 <ul className="mt-2 flex flex-col gap-1.5">
                   {failureGroups.map((g) => (
-                    <li key={g.testId + g.reason} className="glass-inset flex flex-wrap items-center gap-2 rounded-xl px-3 py-2 text-[11px]">
+                    <li key={g.testId + g.reason} className="glass-inset flex flex-wrap items-center gap-2 rounded-xl px-3 py-2 text-[13px]">
                       <LuX size={12} className="text-fail" />
                       <b>{g.testId}</b>
                       <span>{g.reason}</span>
@@ -273,13 +273,13 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
           <CardHeader title="Execute tests at scale" subtitle="Pick a battery, the remote devices and how many run in parallel" />
 
           {/* Battery */}
-          <p className="mt-5 text-[11px] font-semibold tracking-[0.14em] text-faint uppercase">1 · Test battery</p>
+          <p className="mt-5 text-[13px] font-semibold tracking-[0.14em] text-faint uppercase">1 · Test battery</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {batteries.map((b) => (
               <button
                 key={b.id}
                 onClick={() => setBatteryId(b.id)}
-                className={`rounded-full border px-3.5 py-1.5 text-xs transition ${batteryId === b.id ? 'border-white/30 bg-white text-[#14141c]' : 'border-white/12 text-muted hover:text-ink'}`}
+                className={`rounded-full border px-3.5 py-1.5 text-[13px] transition ${batteryId === b.id ? 'border-white/30 bg-white text-[#14141c]' : 'border-white/12 text-muted hover:text-ink'}`}
               >
                 {b.name} <span className="opacity-60">· {b.tests.length}</span>
               </button>
@@ -290,19 +290,19 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
                 setBatteryId('custom');
                 setShowTests(true);
               }}
-              className={`rounded-full border px-3.5 py-1.5 text-xs transition ${batteryId === 'custom' ? 'border-white/30 bg-white text-[#14141c]' : 'border-white/12 text-muted hover:text-ink'}`}
+              className={`rounded-full border px-3.5 py-1.5 text-[13px] transition ${batteryId === 'custom' ? 'border-white/30 bg-white text-[#14141c]' : 'border-white/12 text-muted hover:text-ink'}`}
             >
               Custom selection {batteryId === 'custom' && <span className="opacity-60">· {custom.size}</span>}
             </button>
           </div>
-          <button onClick={() => setShowTests((v) => !v)} className="mt-2 flex items-center gap-1 text-[11px] text-muted hover:text-ink">
+          <button onClick={() => setShowTests((v) => !v)} className="mt-2 flex items-center gap-1 text-[13px] text-muted hover:text-ink">
             <LuChevronDown size={13} className={`transition ${showTests ? 'rotate-180' : ''}`} /> {tests.length} tests selected
           </button>
           {showTests && (
             <ul className="mt-2 grid gap-1 sm:grid-cols-2">
               {library.map((t) => (
                 <li key={t.id}>
-                  <label className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-[11px] hover:bg-white/[0.05]">
+                  <label className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] hover:bg-white/[0.05]">
                     <input type="checkbox" checked={selectedIds.includes(t.id)} onChange={() => toggleTest(t.id)} className="size-3.5 accent-[#5b86f0]" />
                     <b>{t.id}</b>
                     <span className="truncate text-muted">{t.title}</span>
@@ -313,7 +313,7 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
           )}
 
           {/* Devices */}
-          <p className="mt-5 text-[11px] font-semibold tracking-[0.14em] text-faint uppercase">2 · Remote devices</p>
+          <p className="mt-5 text-[13px] font-semibold tracking-[0.14em] text-faint uppercase">2 · Remote devices</p>
           <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {DEVICES.map((d) => {
               const on = deviceIds.has(d.id);
@@ -323,12 +323,12 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
                   key={d.id}
                   onClick={() => toggleDevice(d.id)}
                   aria-pressed={on}
-                  className={`flex items-center gap-2.5 rounded-[14px] border p-2.5 text-left transition ${on ? 'border-[#7aa2ff]/50 bg-accent/15 shadow-[0_0_14px_rgba(91,134,240,0.25)]' : 'border-white/10 bg-white/[0.04] hover:bg-white/[0.08]'}`}
+                  className={`flex items-center gap-2.5 rounded-[14px] border p-2.5 text-left transition ${on ? 'border-[#7aa2ff]/50 bg-accent/15' : 'border-white/10 bg-white/[0.04] hover:bg-white/[0.08]'}`}
                 >
                   <Icon size={18} className={on ? 'text-[#a9c6ff]' : 'text-muted'} />
                   <span className="min-w-0">
-                    <span className="block truncate text-xs font-semibold">{d.label}</span>
-                    <span className="flex items-center gap-1 text-[10px] text-faint">
+                    <span className="block truncate text-[13px] font-semibold">{d.label}</span>
+                    <span className="flex items-center gap-1 text-[12px] text-faint">
                       <i className="size-1.5 rounded-full bg-pass" /> {d.os}
                     </span>
                   </span>
@@ -338,16 +338,16 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
           </div>
 
           {/* Settings */}
-          <p className="mt-5 text-[11px] font-semibold tracking-[0.14em] text-faint uppercase">3 · Settings</p>
+          <p className="mt-5 text-[13px] font-semibold tracking-[0.14em] text-faint uppercase">3 · Settings</p>
           <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-3">
             <div className="glass-inset flex rounded-full p-1">
               {ENVIRONMENTS.map((e) => (
-                <button key={e} onClick={() => setEnv(e)} className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${env === e ? 'bg-white text-[#14141c]' : 'text-faint hover:text-ink'}`}>
+                <button key={e} onClick={() => setEnv(e)} className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold transition ${env === e ? 'bg-white text-[#14141c]' : 'text-faint hover:text-ink'}`}>
                   {e}
                 </button>
               ))}
             </div>
-            <label className="flex items-center gap-3 text-xs text-muted">
+            <label className="flex items-center gap-3 text-[13px] text-muted">
               Parallel workers
               <input type="range" min={1} max={16} value={workers} onChange={(e) => setWorkers(Number(e.target.value))} className="w-32 accent-[#5b86f0]" />
               <b className="w-5 text-ink tabular-nums">{workers}</b>
@@ -360,30 +360,30 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
             <button
               onClick={start}
               disabled={!canRun}
-              className="flex items-center gap-2 rounded-full border border-[#7aa2ff]/50 bg-accent/20 px-5 py-2.5 text-sm font-semibold shadow-[0_0_18px_rgba(91,134,240,0.35)] transition hover:bg-accent/30 disabled:opacity-40"
+              className="flex items-center gap-2 rounded-full border border-[#7aa2ff]/50 bg-accent/20 px-5 py-2.5 text-[15px] font-semibold transition hover:bg-accent/30 disabled:opacity-40"
             >
               <LuPlay size={15} /> Run now
             </button>
             <button
               onClick={() => setScheduling((v) => !v)}
               disabled={!canRun}
-              className="flex items-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-xs font-semibold text-muted transition hover:bg-white/10 hover:text-ink disabled:opacity-40"
+              className="flex items-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-white/10 hover:text-ink disabled:opacity-40"
             >
               <LuCalendarClock size={14} /> Schedule
             </button>
             {preview && (
-              <span className="text-[11px] text-muted">
+              <span className="text-[13px] text-muted">
                 <b className="text-ink">{preview.jobs.length} jobs</b> ({tests.length} tests × {devices.length} devices) · about <b className="text-ink">{formatSeconds(preview.wall)}</b> with {workers}{' '}
                 workers instead of {formatSeconds(preview.sequential)}
               </span>
             )}
-            {!canRun && <span className="text-[11px] text-faint">Select at least one test and one device.</span>}
+            {!canRun && <span className="text-[13px] text-faint">Select at least one test and one device.</span>}
           </div>
 
           <AnimatePresence initial={false}>
             {scheduling && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                <div className="glass-inset mt-3 flex flex-wrap items-center gap-3 rounded-[14px] p-3 text-xs">
+                <div className="glass-inset mt-3 flex flex-wrap items-center gap-3 rounded-[14px] p-3 text-[13px]">
                   <select value={sched.recurrence} onChange={(e) => setSched({ ...sched, recurrence: e.target.value })} className="rounded-lg bg-white/[0.06] px-3 py-2 outline-none [color-scheme:dark]">
                     {Object.entries(RECURRENCES).map(([k, v]) => (
                       <option key={k} value={k}>
@@ -433,11 +433,11 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
                 <div className="flex items-start gap-2">
                   <LuCalendarClock size={15} className="mt-0.5 shrink-0 text-accent" />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-xs font-semibold">{batteryName(s.battery)}</p>
-                    <p className="text-[11px] text-muted">
+                    <p className="truncate text-[13px] font-semibold">{batteryName(s.battery)}</p>
+                    <p className="text-[13px] text-muted">
                       {RECURRENCES[s.recurrence]} at {s.time} · {s.env} · {s.devices.length} devices
                     </p>
-                    <p className="mt-1 text-[10px] text-faint">Next run: {formatWhen(nextRun(s, now), now)}</p>
+                    <p className="mt-1 text-[12px] text-faint">Next run: {formatWhen(nextRun(s, now), now)}</p>
                   </div>
                   <button onClick={() => dispatch({ type: 'deleteSchedule', id: s.id })} aria-label="Delete schedule" className="grid size-7 place-items-center rounded-lg text-muted opacity-60 hover:bg-fail/15 hover:text-fail group-hover:opacity-100">
                     <LuTrash2 size={13} />
@@ -445,24 +445,24 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
                 </div>
               </li>
             ))}
-            {!schedules.length && <li className="p-3 text-center text-xs text-muted">Nothing scheduled.</li>}
+            {!schedules.length && <li className="p-3 text-center text-[13px] text-muted">Nothing scheduled.</li>}
           </ul>
         </GlassCard>
 
         <GlassCard lift={false} delay={0.24} className="p-5">
           <CardHeader title="Run history" subtitle="Runs started from this browser">
             {history.length > 0 && (
-              <button onClick={() => dispatch({ type: 'reset' })} title="Reset demo data" className="flex items-center gap-1 text-[11px] text-muted hover:text-ink">
+              <button onClick={() => dispatch({ type: 'reset' })} title="Reset demo data" className="flex items-center gap-1 text-[13px] text-muted hover:text-ink">
                 <LuRotateCcw size={12} /> Reset demo
               </button>
             )}
           </CardHeader>
           <ul className="mt-3 flex flex-col gap-1.5">
             {history.map((h, i) => (
-              <li key={i} className="flex items-center gap-3 rounded-xl p-2 text-[11px] hover:bg-white/[0.05]">
+              <li key={i} className="flex items-center gap-3 rounded-xl p-2 text-[13px] hover:bg-white/[0.05]">
                 <LuZap size={13} className={h.failed ? 'text-blocked' : 'text-pass'} />
                 <span className="min-w-0 flex-1">
-                  <b className="block truncate text-xs">{h.name}</b>
+                  <b className="block truncate text-[13px]">{h.name}</b>
                   <span className="text-faint">
                     {new Date(h.at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} · {h.env} · {h.jobs} jobs · {formatSeconds(h.wall)}
                   </span>
@@ -473,7 +473,7 @@ export default function Execute({ auto, dispatch, knownDefects, initialTests }) 
                 </span>
               </li>
             ))}
-            {!history.length && <li className="p-3 text-center text-xs text-muted">No runs yet – press Run now.</li>}
+            {!history.length && <li className="p-3 text-center text-[13px] text-muted">No runs yet – press Run now.</li>}
           </ul>
         </GlassCard>
       </div>

@@ -13,7 +13,7 @@ export default function Sparkline({ points, color, width = 110, height = 44, cla
         </linearGradient>
       </defs>
       <path d={`${d} L${width},${height} L0,${height}Z`} fill={`url(#${id})`} />
-      <path d={d} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" style={{ filter: `drop-shadow(0 0 6px ${color})` }} />
+      <path d={d} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }

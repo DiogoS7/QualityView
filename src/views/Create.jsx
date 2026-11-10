@@ -41,12 +41,12 @@ const TYPE_STYLE = {
   Boundary: 'bg-blocked/15 text-blocked',
 };
 
-const field = 'rounded-lg bg-white/[0.06] px-3 py-2 text-xs outline-none placeholder:text-faint focus:bg-white/10';
+const field = 'rounded-lg bg-white/[0.06] px-3 py-2 text-[13px] outline-none placeholder:text-faint focus:bg-white/10';
 
 function StepSummary({ step, n }) {
   const Icon = STEP_ICONS[step.type] ?? LuGlobe;
   return (
-    <li className="flex items-center gap-2 text-[11px] text-muted">
+    <li className="flex items-center gap-2 text-[13px] text-muted">
       <span className="w-4 text-right text-faint">{n}</span>
       <Icon size={12} className="shrink-0 text-accent" />
       <span>
@@ -117,13 +117,13 @@ function Generator({ requirements, initialStory, onAdd }) {
   return (
     <GlassCard lift={false} delay={0.1} className="p-5">
       <CardHeader title="Create tests with AI" subtitle="Paste a user story with its acceptance criteria and generate test cases">
-        <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap ${apiKey ? 'border-violet/30 bg-violet/10 text-violet' : 'border-white/15 text-muted'}`}>
+        <span className={`rounded-full border px-2.5 py-1 text-[13px] font-semibold whitespace-nowrap ${apiKey ? 'border-violet/30 bg-violet/10 text-violet' : 'border-white/15 text-muted'}`}>
           {apiKey ? 'Claude connected' : 'Built-in generator'}
         </span>
       </CardHeader>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        <span className="self-center text-[11px] text-faint">From the backlog:</span>
+        <span className="self-center text-[13px] text-faint">From the backlog:</span>
         {userStories.map((s) => (
           <button
             key={s.id}
@@ -132,7 +132,7 @@ function Generator({ requirements, initialStory, onAdd }) {
               setStoryId(s.id);
               setCases([]);
             }}
-            className={`rounded-full border px-3 py-1.5 text-xs transition ${storyId === s.id ? 'border-white/30 bg-white text-[#14141c]' : 'border-white/12 text-muted hover:text-ink'}`}
+            className={`rounded-full border px-3 py-1.5 text-[13px] transition ${storyId === s.id ? 'border-white/30 bg-white text-[#14141c]' : 'border-white/12 text-muted hover:text-ink'}`}
           >
             {s.id}
           </button>
@@ -146,7 +146,7 @@ function Generator({ requirements, initialStory, onAdd }) {
           setStoryId(null);
         }}
         rows={8}
-        className="glass-inset mt-3 w-full resize-y rounded-[16px] p-4 font-mono text-xs leading-relaxed outline-none focus:bg-white/10"
+        className="glass-inset mt-3 w-full resize-y rounded-[16px] p-4 font-mono text-[13px] leading-relaxed outline-none focus:bg-white/10"
         placeholder={'As a …\nI want …\nSo that …\n\nAcceptance criteria:\n- …'}
       />
 
@@ -154,19 +154,19 @@ function Generator({ requirements, initialStory, onAdd }) {
         <button
           onClick={generate}
           disabled={busy || !story.trim()}
-          className="flex items-center gap-2 rounded-full border border-[#7aa2ff]/50 bg-accent/20 px-5 py-2.5 text-sm font-semibold shadow-[0_0_18px_rgba(91,134,240,0.35)] transition hover:bg-accent/30 disabled:opacity-40"
+          className="flex items-center gap-2 rounded-full border border-[#7aa2ff]/50 bg-accent/20 px-5 py-2.5 text-[15px] font-semibold transition hover:bg-accent/30 disabled:opacity-40"
         >
           <LuWandSparkles size={16} className={busy ? 'animate-pulse' : ''} />
           {busy ? 'Generating…' : 'Generate'}
         </button>
-        {note && <span className="text-[11px] text-muted">{note}</span>}
+        {note && <span className="text-[13px] text-muted">{note}</span>}
       </div>
 
       <AnimatePresence>
         {cases.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs text-muted">
+              <p className="text-[13px] text-muted">
                 <b className="text-ink">{cases.length} test cases</b> generated · {picked.size} selected
               </p>
               <div className="flex flex-wrap items-center gap-2">
@@ -181,14 +181,14 @@ function Generator({ requirements, initialStory, onAdd }) {
                 <button
                   onClick={addPicked}
                   disabled={!picked.size}
-                  className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#14141c] transition disabled:opacity-40"
+                  className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-[#14141c] transition disabled:opacity-40"
                 >
                   <LuPlus size={14} /> Add {picked.size} to library
                 </button>
               </div>
             </div>
             {added > 0 && (
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] text-pass">
+              <p className="mt-2 flex items-center gap-1.5 text-[13px] text-pass">
                 <LuCheck size={13} /> {added} automated tests added to the library
               </p>
             )}
@@ -197,9 +197,9 @@ function Generator({ requirements, initialStory, onAdd }) {
                 <li key={i} className="glass-inset rounded-[14px]">
                   <div className="flex items-center gap-3 px-3 py-2.5">
                     <input type="checkbox" checked={picked.has(i)} onChange={() => toggle(i)} className="size-4 accent-[#5b86f0]" aria-label={`Select ${c.title}`} />
-                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${TYPE_STYLE[c.type] ?? 'bg-white/10 text-muted'}`}>{c.type}</span>
-                    <span className="min-w-0 flex-1 text-xs">{c.title}</span>
-                    <span className="hidden text-[10px] text-faint sm:inline">{c.priority}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-[12px] font-semibold ${TYPE_STYLE[c.type] ?? 'bg-white/10 text-muted'}`}>{c.type}</span>
+                    <span className="min-w-0 flex-1 text-[13px]">{c.title}</span>
+                    <span className="hidden text-[12px] text-faint sm:inline">{c.priority}</span>
                     <button onClick={() => setOpen(open === i ? null : i)} aria-label="Show steps" className="text-muted hover:text-ink">
                       <LuChevronDown size={15} className={`transition ${open === i ? 'rotate-180' : ''}`} />
                     </button>
@@ -250,7 +250,7 @@ function Builder({ editing, requirements, onSave, onCancel }) {
     <GlassCard lift={false} delay={0.18} className="p-5">
       <CardHeader title={t.id ? `Edit ${t.id}` : 'No-code test builder'} subtitle="Build an automated test step by step – no scripting">
         {t.id && (
-          <button onClick={onCancel} className="text-[11px] text-muted hover:text-ink">
+          <button onClick={onCancel} className="text-[13px] text-muted hover:text-ink">
             New test
           </button>
         )}
@@ -274,10 +274,10 @@ function Builder({ editing, requirements, onSave, onCancel }) {
           const def = STEP_TYPES[s.type];
           return (
             <li key={i} className="glass-inset flex flex-wrap items-center gap-2 rounded-[14px] p-2">
-              <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-accent/15 text-[11px] font-bold text-[#a9c6ff]">{i + 1}</span>
+              <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-accent/15 text-[13px] font-bold text-[#a9c6ff]">{i + 1}</span>
               <span className="flex items-center gap-1.5">
                 <Icon size={14} className="text-accent" />
-                <select value={s.type} onChange={(e) => setStep(i, { type: e.target.value })} className="bg-transparent text-xs font-semibold outline-none [color-scheme:dark]" aria-label="Step type">
+                <select value={s.type} onChange={(e) => setStep(i, { type: e.target.value })} className="bg-transparent text-[13px] font-semibold outline-none [color-scheme:dark]" aria-label="Step type">
                   {Object.entries(STEP_TYPES).map(([k, v]) => (
                     <option key={k} value={k}>
                       {v.label}
@@ -304,11 +304,11 @@ function Builder({ editing, requirements, onSave, onCancel }) {
       </ol>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
-        <span className="self-center text-[11px] text-faint">Add step:</span>
+        <span className="self-center text-[13px] text-faint">Add step:</span>
         {Object.entries(STEP_TYPES).map(([k, v]) => {
           const Icon = STEP_ICONS[k];
           return (
-            <button key={k} onClick={() => add(k)} className="flex items-center gap-1.5 rounded-full border border-white/12 px-3 py-1.5 text-[11px] text-muted transition hover:bg-white/10 hover:text-ink">
+            <button key={k} onClick={() => add(k)} className="flex items-center gap-1.5 rounded-full border border-white/12 px-3 py-1.5 text-[13px] text-muted transition hover:bg-white/10 hover:text-ink">
               <Icon size={12} /> {v.label}
             </button>
           );
@@ -323,12 +323,12 @@ function Builder({ editing, requirements, onSave, onCancel }) {
             setSaved(true);
             if (!t.id) setT(blank());
           }}
-          className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#14141c] transition disabled:opacity-40"
+          className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-[#14141c] transition disabled:opacity-40"
         >
           <LuSave size={14} /> Save to library
         </button>
-        {!valid && !saved && <span className="text-[11px] text-faint">Give the test a name and fill in every step's target.</span>}
-        {saved && <span className="flex items-center gap-1 text-[11px] text-pass"><LuCheck size={13} /> Saved</span>}
+        {!valid && !saved && <span className="text-[13px] text-faint">Give the test a name and fill in every step's target.</span>}
+        {saved && <span className="flex items-center gap-1 text-[13px] text-pass"><LuCheck size={13} /> Saved</span>}
       </div>
     </GlassCard>
   );
@@ -342,7 +342,7 @@ function Library({ library, onEdit, onDelete, onRun }) {
   return (
     <GlassCard lift={false} delay={0.24} className="flex flex-col p-5 xl:sticky xl:top-28 xl:max-h-[calc(100vh-140px)]">
       <CardHeader title="Test library" subtitle={`${library.length} automated tests`}>
-        <button onClick={() => onRun(library.map((t) => t.id))} className="flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 text-[11px] text-muted transition hover:bg-white/10 hover:text-ink">
+        <button onClick={() => onRun(library.map((t) => t.id))} className="flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 text-[13px] text-muted transition hover:bg-white/10 hover:text-ink">
           <LuPlay size={12} /> Run all
         </button>
       </CardHeader>
@@ -353,11 +353,11 @@ function Library({ library, onEdit, onDelete, onRun }) {
             <div className="flex items-start gap-2">
               <LuFileText size={14} className="mt-0.5 shrink-0 text-muted" />
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold">
-                  {t.id} <span className={`ml-1 rounded-full px-1.5 py-px text-[9px] font-bold ${t.source === 'AI' ? 'bg-violet/20 text-violet' : 'bg-white/10 text-muted'}`}>{t.source === 'AI' ? 'AI' : 'No-code'}</span>
+                <p className="text-[13px] font-semibold">
+                  {t.id} <span className={`ml-1 rounded-full px-1.5 py-px text-[11px] font-bold ${t.source === 'AI' ? 'bg-violet/20 text-violet' : 'bg-white/10 text-muted'}`}>{t.source === 'AI' ? 'AI' : 'No-code'}</span>
                 </p>
-                <p className="truncate text-[11px] text-muted">{t.title}</p>
-                <p className="text-[10px] text-faint">
+                <p className="truncate text-[13px] text-muted">{t.title}</p>
+                <p className="text-[12px] text-faint">
                   {t.steps.length} steps{t.reqId ? ` · ${t.reqId}` : ''}
                 </p>
               </div>
@@ -375,7 +375,7 @@ function Library({ library, onEdit, onDelete, onRun }) {
             </div>
           </li>
         ))}
-        {!shown.length && <li className="p-4 text-center text-xs text-muted">No tests match.</li>}
+        {!shown.length && <li className="p-4 text-center text-[13px] text-muted">No tests match.</li>}
       </ul>
     </GlassCard>
   );

@@ -22,17 +22,17 @@ export default function SeverityCard({ counts, delay = 0, onSelect, className = 
               onClick={() => onSelect?.(s)}
               className="group grid w-full grid-cols-[62px_1fr_22px] items-center gap-3 rounded-lg px-1 py-1.5 text-left transition hover:bg-white/5"
             >
-              <span className="text-xs text-muted group-hover:text-ink">{s}</span>
+              <span className="text-[13px] text-muted group-hover:text-ink">{s}</span>
               <span className="h-2 overflow-hidden rounded-full bg-white/[0.07]">
                 <motion.span
                   className="block h-full rounded-full"
-                  style={{ background: SEVERITY_COLOURS[s], boxShadow: `0 0 10px ${SEVERITY_COLOURS[s]}80` }}
+                  style={{ background: SEVERITY_COLOURS[s] }}
                   initial={{ width: 0 }}
                   animate={{ width: `${(counts[s] / max) * 100}%` }}
                   transition={{ duration: 0.8, delay: delay + 0.08 * i }}
                 />
               </span>
-              <span className="text-right text-xs font-semibold">{counts[s]}</span>
+              <span className="text-right text-[13px] font-semibold">{counts[s]}</span>
             </button>
           </li>
         ))}

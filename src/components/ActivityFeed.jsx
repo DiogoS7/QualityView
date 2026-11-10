@@ -8,7 +8,7 @@ export default function ActivityFeed({ items, delay = 0, onViewAll, className = 
   return (
     <GlassCard delay={delay} className={`p-5 ${className}`}>
       <CardHeader title="Recent activity">
-        <button onClick={onViewAll} className="flex items-center gap-1 text-[11px] text-muted transition hover:text-ink">
+        <button onClick={onViewAll} className="flex items-center gap-1 text-[13px] text-muted transition hover:text-ink">
           View defects <LuArrowRight size={12} />
         </button>
       </CardHeader>
@@ -16,7 +16,7 @@ export default function ActivityFeed({ items, delay = 0, onViewAll, className = 
         {items.map((a, i) => (
           <li key={i} className="flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/5">
             <Avatar id={a.who} size={32} />
-            <p className="flex-1 text-xs leading-snug text-muted">
+            <p className="flex-1 text-[13px] leading-snug text-muted">
               <b className="font-semibold text-ink">{people[a.who].name.split(' ')[0]}</b>{' '}
               {a.text.map((t, j) =>
                 j % 2 ? (
@@ -28,7 +28,7 @@ export default function ActivityFeed({ items, delay = 0, onViewAll, className = 
                 ),
               )}
             </p>
-            <small className="text-[10px] whitespace-nowrap text-faint">{a.when}</small>
+            <small className="text-[12px] whitespace-nowrap text-faint">{a.when}</small>
           </li>
         ))}
       </ul>

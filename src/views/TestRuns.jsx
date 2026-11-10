@@ -28,13 +28,13 @@ export default function TestRuns({ rows, highlightId, onOpenRequirement }) {
         return (
           <GlassCard key={s} delay={0.1 + i * 0.06} className={`p-0 ${active ? '!border-white/40' : ''}`}>
             <button onClick={() => set({ status: active ? 'All' : s })} className="w-full p-4 text-left sm:p-5" aria-pressed={active}>
-              <span className="flex items-center gap-2 text-xs text-muted">
-                <i className="size-2.5 rounded-full" style={{ background: st.colour, boxShadow: `0 0 8px ${st.colour}` }} />
+              <span className="flex items-center gap-2 text-[13px] text-muted">
+                <i className="size-2.5 rounded-full" style={{ background: st.colour }} />
                 {st.label}
               </span>
               <span className="mt-2 flex items-baseline gap-2">
                 <b className="text-[28px] leading-none font-bold tracking-tight">{counts[s]}</b>
-                <span className="text-xs text-faint">{percent(counts[s], rows.length)}%</span>
+                <span className="text-[13px] text-faint">{percent(counts[s], rows.length)}%</span>
               </span>
               <span className="mt-3 block h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
                 <span className="block h-full rounded-full" style={{ width: `${percent(counts[s], rows.length)}%`, background: st.colour }} />
@@ -54,7 +54,7 @@ export default function TestRuns({ rows, highlightId, onOpenRequirement }) {
               value={filters.query}
               onChange={(e) => set({ query: e.target.value })}
               placeholder="Search test id, title or requirement"
-              className="w-full bg-transparent text-sm outline-none placeholder:text-faint"
+              className="w-full bg-transparent text-[15px] outline-none placeholder:text-faint"
             />
             {filters.query && (
               <button aria-label="Clear search" onClick={() => set({ query: '' })} className="text-muted hover:text-ink">
@@ -67,7 +67,7 @@ export default function TestRuns({ rows, highlightId, onOpenRequirement }) {
               <button
                 key={s}
                 onClick={() => set({ suite: s })}
-                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${filters.suite === s ? 'bg-white text-[#0f1524]' : 'text-faint hover:text-ink'}`}
+                className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold transition ${filters.suite === s ? 'bg-white text-[#0f1524]' : 'text-faint hover:text-ink'}`}
               >
                 {s}
               </button>
@@ -76,8 +76,8 @@ export default function TestRuns({ rows, highlightId, onOpenRequirement }) {
         </div>
 
         <div className="scroll-glass mt-4 overflow-x-auto">
-          <table className="w-full min-w-[760px] text-left text-xs">
-            <thead className="text-[11px] text-faint">
+          <table className="w-full min-w-[760px] text-left text-[13px]">
+            <thead className="text-[13px] text-faint">
               <tr>
                 {['ID', 'Test case', 'Requirement', 'Suite', 'Tester', 'Last run', 'Duration', 'Result'].map((h) => (
                   <th key={h} className="px-3 py-2 font-medium">
@@ -92,10 +92,10 @@ export default function TestRuns({ rows, highlightId, onOpenRequirement }) {
                   <td className="px-3 py-3 font-semibold whitespace-nowrap">{r.id}</td>
                   <td className="px-3 py-3 text-muted">
                     {r.title}
-                    {r.note && <span className="block text-[10px] text-blocked">{r.note}</span>}
+                    {r.note && <span className="block text-[12px] text-blocked">{r.note}</span>}
                   </td>
                   <td className="px-3 py-3">
-                    <button onClick={() => onOpenRequirement(r.reqId)} className="glass-inset rounded-full px-2 py-1 text-[11px] whitespace-nowrap transition hover:bg-white/15">
+                    <button onClick={() => onOpenRequirement(r.reqId)} className="glass-inset rounded-full px-2 py-1 text-[13px] whitespace-nowrap transition hover:bg-white/15">
                       {r.reqId}
                     </button>
                   </td>
@@ -106,7 +106,7 @@ export default function TestRuns({ rows, highlightId, onOpenRequirement }) {
                   <td className="px-3 py-3 whitespace-nowrap text-faint">{r.lastRun}</td>
                   <td className="px-3 py-3 whitespace-nowrap text-faint">{formatDuration(r.durationSec)}</td>
                   <td className="px-3 py-3">
-                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap ${RUN_STYLE[r.status].cls}`}>{RUN_STYLE[r.status].label}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap ${RUN_STYLE[r.status].cls}`}>{RUN_STYLE[r.status].label}</span>
                   </td>
                 </tr>
               ))}

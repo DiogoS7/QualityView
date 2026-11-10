@@ -71,9 +71,9 @@ export default function SearchPalette({ open, onClose, sources, onPick }) {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={onKey}
                 placeholder="Search defects, requirements and tests…"
-                className="w-full bg-transparent text-[15px] outline-none placeholder:text-faint"
+                className="w-full bg-transparent text-[16px] outline-none placeholder:text-faint"
               />
-              <kbd className="rounded-md border border-white/15 px-1.5 py-0.5 text-[10px] text-faint">Esc</kbd>
+              <kbd className="rounded-md border border-white/15 px-1.5 py-0.5 text-[12px] text-faint">Esc</kbd>
             </label>
             {query.trim() && <div className="mx-2 h-px bg-white/10" />}
             <ul className="max-h-[50vh] overflow-y-auto">
@@ -90,20 +90,20 @@ export default function SearchPalette({ open, onClose, sources, onPick }) {
                         <Icon size={15} />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block text-xs font-semibold">
+                        <span className="block text-[13px] font-semibold">
                           {r.id} <span className="font-normal text-faint">· {label}</span>
                         </span>
-                        <span className="block truncate text-xs text-muted">{r.title}</span>
+                        <span className="block truncate text-[13px] text-muted">{r.title}</span>
                       </span>
-                      <span className="hidden text-[10px] text-faint sm:block">{r.meta}</span>
+                      <span className="hidden text-[12px] text-faint sm:block">{r.meta}</span>
                       {i === active && <LuCornerDownLeft size={13} className="text-faint" />}
                     </button>
                   </li>
                 );
               })}
-              {query.trim() && !results.length && <li className="px-3 py-8 text-center text-xs text-muted">No matches for “{query}”.</li>}
+              {query.trim() && !results.length && <li className="px-3 py-8 text-center text-[13px] text-muted">No matches for “{query}”.</li>}
             </ul>
-            {!query.trim() && <p className="px-3 pt-1 pb-2.5 text-[11px] text-faint">Try “DEF-1042”, “REQ-104”, “limit” or “IBAN”.</p>}
+            {!query.trim() && <p className="px-3 pt-1 pb-2.5 text-[13px] text-faint">Try “DEF-1042”, “REQ-104”, “limit” or “IBAN”.</p>}
           </motion.div>
         </motion.div>
       )}

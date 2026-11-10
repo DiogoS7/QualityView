@@ -27,10 +27,9 @@ export function Ring({ value, colour, size = 54, stroke = 5 }) {
           initial={{ strokeDashoffset: c }}
           animate={{ strokeDashoffset: c * (1 - value / 100) }}
           transition={{ duration: 1, ease: [0.2, 0.8, 0.2, 1] }}
-          style={{ filter: `drop-shadow(0 0 4px ${colour})` }}
         />
       </svg>
-      <span className="absolute inset-0 grid place-items-center text-[11px] font-bold">{Math.round(value)}%</span>
+      <span className="absolute inset-0 grid place-items-center text-[13px] font-bold">{Math.round(value)}%</span>
     </div>
   );
 }
@@ -41,24 +40,24 @@ export default function ReadinessCard({ gates, readiness, goLiveInDays, delay = 
   return (
     <GlassCard delay={delay} className={`p-5 ${className}`}>
       <CardHeader title="Go / No-Go" subtitle={`Go-live in ${goLiveInDays} days`}>
-        <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold ${style.cls}`}>{readiness.verdict}</span>
+        <span className={`rounded-full border px-2.5 py-1 text-[13px] font-semibold ${style.cls}`}>{readiness.verdict}</span>
       </CardHeader>
       <div className="glass-inset mt-3 flex items-center gap-3.5 rounded-[14px] p-2.5">
         <Ring value={readiness.score} colour={style.colour} />
         <div>
-          <p className="text-xs font-semibold">
+          <p className="text-[13px] font-semibold">
             {readiness.met} of {readiness.total} gates met
           </p>
-          <p className="mt-0.5 text-[10px] text-muted">Release criteria agreed with the client</p>
+          <p className="mt-0.5 text-[12px] text-muted">Release criteria agreed with the client</p>
         </div>
       </div>
       <ul className="mt-3 flex flex-col gap-1.5">
         {gates.map((g) => (
-          <li key={g.id} className="flex items-start gap-2 text-[11px]">
+          <li key={g.id} className="flex items-start gap-2 text-[13px]">
             {g.met ? <LuCircleCheck size={14} className="mt-px shrink-0 text-pass" /> : <LuCircleX size={14} className="mt-px shrink-0 text-fail" />}
             <span className="flex-1 text-muted">
               {g.label}
-              <span className="block text-[10px] text-faint">{g.note}</span>
+              <span className="block text-[12px] text-faint">{g.note}</span>
             </span>
           </li>
         ))}

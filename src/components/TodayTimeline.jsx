@@ -49,16 +49,16 @@ export default function TodayTimeline({ agenda, delay = 0, className = '' }) {
               value={draft.title}
               onChange={(e) => setDraft({ ...draft, title: e.target.value })}
               placeholder="e.g. Retest DEF-1042"
-              className="rounded-lg bg-white/[0.06] px-3 py-2 text-xs outline-none placeholder:text-faint focus:bg-white/10"
+              className="rounded-lg bg-white/[0.06] px-3 py-2 text-[13px] outline-none placeholder:text-faint focus:bg-white/10"
             />
             <div className="flex gap-2">
               <input
                 type="time"
                 value={draft.time}
                 onChange={(e) => setDraft({ ...draft, time: e.target.value })}
-                className="flex-1 rounded-lg bg-white/[0.06] px-3 py-2 text-xs outline-none [color-scheme:dark]"
+                className="flex-1 rounded-lg bg-white/[0.06] px-3 py-2 text-[13px] outline-none [color-scheme:dark]"
               />
-              <button type="submit" disabled={!draft.title.trim()} className="rounded-lg bg-white px-4 text-xs font-semibold text-[#0f1524] transition disabled:opacity-40">
+              <button type="submit" disabled={!draft.title.trim()} className="rounded-lg bg-white px-4 text-[13px] font-semibold text-[#0f1524] transition disabled:opacity-40">
                 Add
               </button>
             </div>
@@ -69,10 +69,10 @@ export default function TodayTimeline({ agenda, delay = 0, className = '' }) {
       <ol className="flex flex-col gap-2.5">
         {events.map((e) => (
           <li key={`${e.time}-${e.title}`} className="grid grid-cols-[38px_1fr] gap-2.5">
-            <time className="pt-3 text-[10px] text-faint">{e.time}</time>
+            <time className="pt-3 text-[12px] text-faint">{e.time}</time>
             <div className="glass-inset rounded-[14px] border-l-[3px] px-3.5 py-3 transition hover:bg-white/10" style={{ borderLeftColor: e.color }}>
-              <p className="text-xs font-semibold">{e.title}</p>
-              <p className="text-[10px] text-muted">{e.range}</p>
+              <p className="text-[13px] font-semibold">{e.title}</p>
+              <p className="text-[12px] text-muted">{e.range}</p>
               <div className="mt-2">
                 <AvatarStack ids={e.people} />
               </div>

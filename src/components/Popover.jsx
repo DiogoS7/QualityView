@@ -48,7 +48,7 @@ export default function Popover({ trigger, children, width = 320, align = 'right
 export function PopoverHeader({ title, action }) {
   return (
     <div className="flex items-center justify-between px-3 pt-2 pb-2.5">
-      <p className="text-sm font-semibold">{title}</p>
+      <p className="text-[15px] font-semibold">{title}</p>
       {action}
     </div>
   );

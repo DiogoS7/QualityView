@@ -19,7 +19,7 @@ export default function Avatar({ id, size = 22, online = false, ring = true, cla
     >
       {id}
       {online && (
-        <span className="absolute -right-0.5 -bottom-0.5 size-2.5 rounded-full bg-pass shadow-[0_0_0_1.5px_rgba(255,255,255,0.35),0_0_6px_rgba(74,222,128,0.8)]" />
+        <span className="absolute -right-0.5 -bottom-0.5 size-2.5 rounded-full bg-pass shadow-[0_0_0_1.5px_rgba(255,255,255,0.35)]" />
       )}
     </span>
   );

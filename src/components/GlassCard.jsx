@@ -21,8 +21,8 @@ export function CardHeader({ title, subtitle, children }) {
   return (
     <div className="flex items-start justify-between gap-3">
       <div>
-        <h3 className="text-[15px] font-semibold">{title}</h3>
-        {subtitle && <p className="mt-0.5 text-xs text-muted">{subtitle}</p>}
+        <h3 className="text-[16px] font-semibold">{title}</h3>
+        {subtitle && <p className="mt-0.5 text-[13px] text-muted">{subtitle}</p>}
       </div>
       {children}
     </div>

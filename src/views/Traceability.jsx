@@ -11,8 +11,8 @@ const STATUS = {
 };
 
 const TEST_DOT = {
-  passed: 'bg-pass shadow-[0_0_8px_#4ade80]',
-  failed: 'bg-fail shadow-[0_0_8px_#f87171]',
+  passed: 'bg-pass',
+  failed: 'bg-fail',
   blocked: 'bg-blocked',
   'not run': 'border border-white/40',
 };
@@ -41,8 +41,8 @@ export default function Traceability({ requirements, trace, highlightId, onOpenT
         <GlassCard key={s.label} delay={0.1 + i * 0.07} className="flex items-center gap-4 p-5">
           <Ring value={s.value} colour={s.colour} size={64} stroke={6} />
           <div>
-            <p className="text-[15px] font-semibold">{s.label}</p>
-            <p className="mt-0.5 text-xs text-muted">{s.sub}</p>
+            <p className="text-[16px] font-semibold">{s.label}</p>
+            <p className="mt-0.5 text-[13px] text-muted">{s.sub}</p>
           </div>
         </GlassCard>
       ))}
@@ -51,14 +51,14 @@ export default function Traceability({ requirements, trace, highlightId, onOpenT
           {trace.mustGaps}
         </span>
         <div>
-          <p className="text-[15px] font-semibold">Must-have gaps</p>
-          <p className="mt-0.5 text-xs text-muted">Must-have requirements not yet verified – these block go-live</p>
+          <p className="text-[16px] font-semibold">Must-have gaps</p>
+          <p className="mt-0.5 text-[13px] text-muted">Must-have requirements not yet verified – these block go-live</p>
         </div>
       </GlassCard>
 
       <GlassCard lift={false} delay={0.3} className="min-w-0 p-5 lg:col-span-3">
         <CardHeader title="Traceability matrix" subtitle="Requirement → linked test cases → latest result">
-          <label className="flex cursor-pointer items-center gap-2 text-xs text-muted select-none">
+          <label className="flex cursor-pointer items-center gap-2 text-[13px] text-muted select-none">
             <span>Gaps only</span>
             <button
               role="switch"
@@ -71,7 +71,7 @@ export default function Traceability({ requirements, trace, highlightId, onOpenT
           </label>
         </CardHeader>
 
-        <div className="mt-3 flex flex-wrap gap-4 text-[11px] text-muted">
+        <div className="mt-3 flex flex-wrap gap-4 text-[13px] text-muted">
           {Object.entries(TEST_DOT).map(([k, cls]) => (
             <span key={k} className="flex items-center gap-1.5">
               <i className={`size-2.5 rounded-full ${cls}`} />
@@ -81,8 +81,8 @@ export default function Traceability({ requirements, trace, highlightId, onOpenT
         </div>
 
         <div className="scroll-glass mt-4 overflow-x-auto">
-          <table className="w-full min-w-[640px] text-left text-xs">
-            <thead className="text-[11px] text-faint">
+          <table className="w-full min-w-[640px] text-left text-[13px]">
+            <thead className="text-[13px] text-faint">
               <tr>
                 {['Requirement', 'Priority', 'Linked tests', 'Status'].map((h) => (
                   <th key={h} className="px-3 py-2 font-medium">
@@ -103,7 +103,7 @@ export default function Traceability({ requirements, trace, highlightId, onOpenT
                     {r.tests.length ? (
                       <div className="flex flex-wrap gap-2">
                         {r.tests.map((t) => (
-                          <button key={t.id} onClick={() => onOpenTest(t.id)} title={`${t.id}: ${t.status} – open in Test runs`} className="glass-inset flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] transition hover:bg-white/15">
+                          <button key={t.id} onClick={() => onOpenTest(t.id)} title={`${t.id}: ${t.status} – open in Test runs`} className="glass-inset flex items-center gap-1.5 rounded-full px-2 py-1 text-[13px] transition hover:bg-white/15">
                             <i className={`size-2 rounded-full ${TEST_DOT[t.status]}`} />
                             {t.id}
                           </button>
@@ -114,7 +114,7 @@ export default function Traceability({ requirements, trace, highlightId, onOpenT
                     )}
                   </td>
                   <td className="px-3 py-3">
-                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap ${STATUS[r.status].cls}`}>{STATUS[r.status].label}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap ${STATUS[r.status].cls}`}>{STATUS[r.status].label}</span>
                   </td>
                 </tr>
               ))}

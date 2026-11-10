@@ -44,15 +44,15 @@ function ClientBadge() {
   return (
     <div className="glass inline-flex max-w-full items-center gap-2.5 rounded-full py-1 pr-4 pl-1">
       <span
-        className="grid size-7 shrink-0 place-items-center rounded-full text-[13px] font-extrabold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
+        className="grid size-7 shrink-0 place-items-center rounded-full text-[14px] font-extrabold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
         style={{ background: 'linear-gradient(135deg, #2dd4bf 0%, #0e7490 100%)' }}
         aria-hidden="true"
       >
         M
       </span>
-      <span className="text-sm font-semibold tracking-tight text-ink">{release.client}</span>
+      <span className="text-[15px] font-semibold tracking-tight text-ink">{release.client}</span>
       <span className="hidden h-4 w-px bg-white/20 sm:block" />
-      <span className="hidden truncate text-xs text-muted sm:inline">{release.programme}</span>
+      <span className="hidden truncate text-[13px] text-muted sm:inline">{release.programme}</span>
     </div>
   );
 }
@@ -218,13 +218,13 @@ export default function App() {
               <div>
                 <ClientBadge />
                 <h1 className="mt-3 text-[22px] font-semibold tracking-tight sm:text-[26px]">{titles[tab]}</h1>
-                <p className="mt-1 text-[13px] text-muted">
+                <p className="mt-1 text-[14px] text-muted">
                   Release {release.name} — go-live in {release.goLiveInDays} days
                 </p>
               </div>
               <div className="flex items-center gap-2.5">
                 {tab === 'overview' && <ScopePicker value={scopeKey} onChange={setScopeKey} />}
-                <button onClick={exportCsv} className="glass flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold transition hover:bg-white/15">
+                <button onClick={exportCsv} className="glass flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-semibold transition hover:bg-white/15">
                   <LuDownload size={14} /> Export
                 </button>
               </div>

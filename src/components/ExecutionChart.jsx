@@ -22,7 +22,7 @@ export default function ExecutionChart({ scopeKey, scope, rateChange, delay = 0,
     <GlassCard delay={delay} className={`flex min-h-[340px] flex-col p-5 sm:min-h-[380px] sm:px-6 ${className}`}>
       <CardHeader title="Test execution" subtitle={scope.caption}>
         <span
-          className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap ${
+          className={`rounded-full border px-2.5 py-1 text-[13px] font-semibold whitespace-nowrap ${
             rateChange.good ? 'border-pass/25 bg-pass/10 text-pass' : 'border-fail/25 bg-fail/10 text-fail'
           }`}
         >
@@ -31,7 +31,7 @@ export default function ExecutionChart({ scopeKey, scope, rateChange, delay = 0,
         </span>
       </CardHeader>
 
-      <div className="mt-3 flex gap-4 text-[11px] text-muted">
+      <div className="mt-3 flex gap-4 text-[13px] text-muted">
         {LEGEND.map(([label, dot]) => (
           <span key={label} className="flex items-center gap-1.5">
             <i className={`size-2 rounded-full ${dot}`} />
@@ -41,7 +41,7 @@ export default function ExecutionChart({ scopeKey, scope, rateChange, delay = 0,
       </div>
 
       <div className="mt-4 grid flex-1 grid-cols-[34px_1fr]">
-        <div className="flex flex-col justify-between pb-[26px] text-[10px] text-faint">
+        <div className="flex flex-col justify-between pb-[26px] text-[12px] text-faint">
           {ticks.map((t) => (
             <span key={t}>{t}</span>
           ))}
@@ -68,7 +68,7 @@ export default function ExecutionChart({ scopeKey, scope, rateChange, delay = 0,
                   transition={{ duration: 0.8, delay: 0.05 * i, ease: [0.2, 0.8, 0.2, 1] }}
                   className={`relative flex w-5 cursor-pointer flex-col overflow-hidden rounded-full border sm:w-[30px] ${
                     hi
-                      ? 'border-[#8cb4ff]/60 bg-gradient-to-b from-[#6aa2ff] to-[#2f6bf0] shadow-[0_0_30px_rgba(79,139,255,0.55)]'
+                      ? 'border-[#8cb4ff]/60 bg-gradient-to-b from-[#6aa2ff] to-[#2f6bf0]'
                       : 'border-white/20 bg-gradient-to-b from-white/35 to-white/[0.08] group-hover:from-white/50'
                   }`}
                 >
@@ -77,7 +77,7 @@ export default function ExecutionChart({ scopeKey, scope, rateChange, delay = 0,
                 </motion.div>
                 <div
                   role="tooltip"
-                  className="pointer-events-none absolute z-10 translate-y-1 rounded-lg border border-white/15 bg-[#0d1220]/85 px-2.5 py-1.5 text-[11px] whitespace-nowrap opacity-0 backdrop-blur transition group-hover:translate-y-0 group-hover:opacity-100"
+                  className="pointer-events-none absolute z-10 translate-y-1 rounded-lg border border-white/15 bg-[#0d1220]/85 px-2.5 py-1.5 text-[13px] whitespace-nowrap opacity-0 backdrop-blur transition group-hover:translate-y-0 group-hover:opacity-100"
                   style={{ bottom: `calc(${Math.max(2, (total / max) * 100)}% + 8px)` }}
                 >
                   <b className="font-semibold">{total} runs</b>
@@ -86,7 +86,7 @@ export default function ExecutionChart({ scopeKey, scope, rateChange, delay = 0,
                     · {d.passed} pass · {d.failed} fail · {d.blocked} blocked
                   </span>
                 </div>
-                <span className={`absolute -bottom-6 text-[11px] ${hi ? 'text-ink' : 'text-faint'}`}>{d.label}</span>
+                <span className={`absolute -bottom-6 text-[13px] ${hi ? 'text-ink' : 'text-faint'}`}>{d.label}</span>
               </div>
             );
           })}

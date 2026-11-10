@@ -47,7 +47,7 @@ function IconButton({ label, onClick, active, children, className = '' }) {
 function Badge({ n }) {
   if (!n) return null;
   return (
-    <span className="absolute -top-0.5 -right-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-gradient-to-b from-[#ff6b6b] to-[#e5383b] px-1 text-[9px] leading-none font-bold text-white shadow-[0_2px_8px_rgba(229,56,59,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]">
+    <span className="absolute -top-0.5 -right-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-gradient-to-b from-[#ff6b6b] to-[#e5383b] px-1 text-[11px] leading-none font-bold text-white shadow-[0_2px_8px_rgba(229,56,59,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]">
       {n}
     </span>
   );
@@ -71,7 +71,7 @@ function MessagesMenu() {
         title="Messages"
         action={
           unread > 0 && (
-            <button onClick={markAll} className="text-[11px] text-muted hover:text-ink">
+            <button onClick={markAll} className="text-[13px] text-muted hover:text-ink">
               Mark all as read
             </button>
           )
@@ -86,11 +86,11 @@ function MessagesMenu() {
             >
               <Avatar id={m.from} size={32} />
               <span className="min-w-0 flex-1">
-                <span className="flex items-center justify-between gap-2 text-xs">
+                <span className="flex items-center justify-between gap-2 text-[13px]">
                   <b className="font-semibold">{people[m.from].name}</b>
-                  <span className="text-[10px] text-faint">{m.when}</span>
+                  <span className="text-[12px] text-faint">{m.when}</span>
                 </span>
-                <span className={`mt-0.5 block text-xs leading-snug ${m.unread ? 'text-ink' : 'text-muted'}`}>{m.text}</span>
+                <span className={`mt-0.5 block text-[13px] leading-snug ${m.unread ? 'text-ink' : 'text-muted'}`}>{m.text}</span>
               </span>
               {m.unread && <i className="mt-1.5 size-2 shrink-0 rounded-full bg-accent" />}
             </button>
@@ -122,7 +122,7 @@ function NotificationsMenu({ alerts, onOpenDefect, onViewAlerts }) {
                   onViewAlerts();
                   close();
                 }}
-                className="flex items-center gap-1 rounded-full px-2 py-1 text-[11px] text-muted transition hover:bg-white/10 hover:text-ink"
+                className="flex items-center gap-1 rounded-full px-2 py-1 text-[13px] text-muted transition hover:bg-white/10 hover:text-ink"
               >
                 Open Critical &amp; High <LuChevronRight size={12} />
               </button>
@@ -138,18 +138,18 @@ function NotificationsMenu({ alerts, onOpenDefect, onViewAlerts }) {
                   }}
                   className="group flex w-full items-center gap-3 rounded-xl p-2.5 text-left transition hover:bg-white/[0.07]"
                 >
-                  <i className="size-2.5 shrink-0 rounded-full" style={{ background: SEVERITY_COLOURS[d.severity], boxShadow: `0 0 8px ${SEVERITY_COLOURS[d.severity]}` }} />
+                  <i className="size-2.5 shrink-0 rounded-full" style={{ background: SEVERITY_COLOURS[d.severity] }} />
                   <span className="min-w-0 flex-1">
-                    <span className="block text-xs font-semibold">
+                    <span className="block text-[13px] font-semibold">
                       {d.id} <span className="font-normal text-muted">· {d.severity} · {d.status}</span>
                     </span>
-                    <span className="block truncate text-xs text-muted">{d.title}</span>
+                    <span className="block truncate text-[13px] text-muted">{d.title}</span>
                   </span>
                   <LuChevronRight size={14} className="text-faint group-hover:text-ink" />
                 </button>
               </li>
             ))}
-            {!alerts.length && <li className="p-4 text-center text-xs text-muted">Nothing urgent. Nice.</li>}
+            {!alerts.length && <li className="p-4 text-center text-[13px] text-muted">Nothing urgent. Nice.</li>}
           </ul>
         </>
       )}
@@ -177,15 +177,15 @@ function ProfileMenu() {
       <div className="flex items-center gap-3 p-3">
         <Avatar id="DS" size={44} online ring={false} />
         <div>
-          <p className="text-sm font-semibold">{me.name}</p>
-          <p className="text-xs text-muted">{me.role}</p>
+          <p className="text-[15px] font-semibold">{me.name}</p>
+          <p className="text-[13px] text-muted">{me.role}</p>
         </div>
       </div>
       <div className="mx-2 my-1 h-px bg-white/10" />
       <ul className="flex flex-col gap-0.5">
         {links.map(({ href, label, icon: Icon }) => (
           <li key={label}>
-            <a href={href} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs text-muted transition hover:bg-white/[0.07] hover:text-ink">
+            <a href={href} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] text-muted transition hover:bg-white/[0.07] hover:text-ink">
               <Icon size={15} />
               {label}
             </a>
@@ -213,8 +213,8 @@ export default function TopBar({ tab, onTab, alerts, onOpenDefect, onViewAlerts,
               key={id}
               onClick={() => onTab(id)}
               aria-current={active ? 'page' : undefined}
-              className={`flex items-center gap-2 rounded-full border px-3 py-2.5 text-[13px] font-medium transition xl:px-4 ${
-                active ? 'border-[#7aa2ff]/50 bg-white/10 text-ink shadow-[0_0_14px_rgba(91,134,240,0.4),inset_0_1px_0_rgba(255,255,255,0.18)]' : 'border-transparent text-muted hover:bg-white/[0.07] hover:text-ink'
+              className={`flex items-center gap-2 rounded-full border px-3 py-2.5 text-[14px] font-medium transition xl:px-4 ${
+                active ? 'border-[#7aa2ff]/50 bg-white/10 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]' : 'border-transparent text-muted hover:bg-white/[0.07] hover:text-ink'
               }`}
             >
               <Icon size={15} />
