@@ -48,7 +48,7 @@
   border: 1px solid rgb(255 255 255 / 0.12);
 }
 
-/* ---------- Background: deep navy with a cobalt light and a faint grid ---------- */
+/* ---------- Background: deep navy with a soft cobalt light ---------- */
 .scene {
   position: fixed;
   inset: 0;
@@ -71,13 +71,6 @@
   transform: translateX(-50%);
   background: #3a62d8;
   opacity: 0.3;
-}
-.scene .grid-lines {
-  inset: 0;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
 }
 .scene .vignette {
   inset: 0;
